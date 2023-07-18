@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="utf8" />
+    <title>Salience</title>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        margin: 0;
+      }
+      p {
+        width: 700px;
+        margin: 1em auto;
+        color: #4d4d4d;
+        font-family: sans-serif;
+        font-size: 15px;
+        line-height: 1.33em;
+        flex: 1;
+        overflow-y: scroll;
+      }
+      h1 {
+        width: 700px;
+        text-align: left;
+        margin: 15px auto;
+        margin-bottom: 0;
+        color: #000;
+        font-family: sans-serif;
+        font-size: 24px;
+      }
+      h1 span {
+        display: block;
+        font-size: 0.7em;
+        font-weight: normal;
+        color: #a0a0a0;
+      }
+      span.sentence {
+        background-color: rgba(249, 239, 104, var(--salience));
+      }
+      ::selection {
+        background: transparent;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>
+      Salience
+      <span>automatic sentence highlights based on their significance to the document</span>
+    </h1>
+    <p id="content">
+    {% for score, sentence in sentences %}
+        <span class="sentence" style="--salience: {{ scale(score) }}">{{ sentence|replace('\n', '<br>')|safe }}</span>
+        <br/><br/>
+    {% endfor %}
+    </p>
+  </body>
+</html>
